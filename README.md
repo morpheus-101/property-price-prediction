@@ -1,4 +1,4 @@
-# Regression Model Package
+# Property Price Prediction Regression Model
 
 This repository contains a production-ready regression model package for predicting house prices. The package is designed to be easily integrated into larger projects or deployed as a standalone service.
 
@@ -19,18 +19,19 @@ The project is organized as follows:
   - `typing_requirements.txt`: Dependencies for static type checking
 - `tox.ini`: Configuration file for tox, used for automating testing and quality checks across different environments
 - `MANIFEST.in`: Specifies additional files to include in the package distribution
+- `setup.py`: Setup script for packaging and distribution
 
 ## Setup and Installation
 
 1. Clone this repository:
    ```
-   git clone https://github.com/your-username/regression-model-package.git
-   cd regression-model-package
+   git clone https://github.com/morpheus-101/property-price-prediction.git
+   cd property-price-prediction
    ```
 2. Create a virtual environment (recommended):
    ```
-   python -m venv env
-   source env/bin/activate  # On Windows, use `env\Scripts\activate`
+   python -m venv hpp-env
+   source hpp-env/bin/activate  # On Windows, use `hpp-env\Scripts\activate`
    ```
 3. Install the required packages:
    ```
@@ -40,6 +41,3 @@ The project is organized as follows:
 ## Usage
 
 To train the model:
-
-
-
