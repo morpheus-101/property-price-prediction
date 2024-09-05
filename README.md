@@ -1,3 +1,5 @@
+cci-setup testing
+
 # Property Price Prediction Regression Model
 
 This repository contains a production-ready regression model package for predicting house prices. The package is designed to be easily integrated into larger projects or deployed as a standalone service.
