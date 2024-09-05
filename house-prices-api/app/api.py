@@ -22,7 +22,7 @@ def add_to_path(p):
         sys.path = old_path
 
 # Use the context manager to temporarily modify the path
-with add_to_path(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'prod_model_package'))):
+with add_to_path(os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))):
     from regression_model import __version__ as model_version
     from regression_model.predict import make_prediction
 
