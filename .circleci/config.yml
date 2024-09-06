@@ -203,11 +203,11 @@ workflows:
   container-deploy:
     jobs:
       - section_08_deploy_app_container_via_railway:
-      filters:
-        branches:
-          only:
-            - main
-            - demo
+          filters:
+            branches:
+              only:
+                - main
+                - demo
 
 
 
