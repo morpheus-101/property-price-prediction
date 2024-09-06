@@ -202,7 +202,7 @@ workflows:
   version: 2
   container-deploy:
     jobs:
-      - section_08_deploy_app_container_via_railway
+      - section_08_deploy_app_container_via_railway:
       filters:
         branches:
           only:
