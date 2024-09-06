@@ -77,22 +77,21 @@ jobs:
             tox -e publish_model
 
 
-  # section_08_deploy_app_container_via_railway:
-  #   <<: *defaults
-  #   steps:
-  #     - setup_remote_docker:
-  #         # Supported versions: https://circleci.com/docs/2.0/building-docker-images/#docker-version
-  #         version: 20.10.18
-  #     - checkout:
-  #         path: ~/project/
-  #     - node/install:
-  #         node-version: '16.13'
-  #     - run: node --version
-  #     - run: npm i -g @railway/cli
-  #     - run:
-  #         name: Build and run Dockerfile (see https://docs.railway.app/deploy/dockerfiles)
-  #         command: |
-  #           cd section-08-deploying-with-containers && railway up --detach -s property-prices-project -e production
+  section_08_deploy_app_container_via_railway:
+    <<: *defaults
+    steps:
+      - setup_remote_docker:
+          version: 20.10.18
+      - checkout:
+          path: ~/project/
+      - node/install:
+          node-version: '16.13'
+      - run: node --version
+      - run: npm i -g @railway/cli
+      - run:
+          name: Build and run Dockerfile (see https://docs.railway.app/deploy/dockerfiles)
+          command: |
+            cd section-08-deploying-with-containers && railway up --detach -s property-prices-project -e production
 
   test_regression_model_py37:
     docker:
@@ -182,19 +181,25 @@ tags_only: &tags_only
 
 
 
-workflows:
-  version: 2
-  deploy_pipeline:
-    jobs:
-      - section_07_test_app
-      # - section_07_deploy_app_to_railway:
-      #     requires:
-      #       - section_07_test_app
-      #     filters:
-      #       branches:
-      #         only:
-      #           - main
-      #           - demo
-      # upload after git tags are created
-      - section_07_test_and_upload_regression_model:
-          <<: *tags_only
+# workflows:
+#   version: 2
+#   deploy_pipeline:
+#     jobs:
+#       - section_07_test_app
+#       - section_07_deploy_app_to_railway:
+#           requires:
+#             - section_07_test_app
+#           filters:
+#             branches:
+#               only:
+#                 - main
+#                 - demo
+#       # upload after git tags are created
+#       - section_07_test_and_upload_regression_model:
+#           <<: *tags_only
+
+# workflows:
+#   version: 2
+#   container-deploy:
+#     jobs:
+#       - section_08_deploy_app_container_via_railway
