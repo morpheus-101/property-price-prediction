@@ -8,10 +8,12 @@ from pydantic import AnyHttpUrl, BaseSettings
 
 
 class LoggingSettings(BaseSettings):
+    """Settings for logging configuration."""
     LOGGING_LEVEL: int = logging.INFO  # logging levels are type int
 
 
 class Settings(BaseSettings):
+    """Main settings class for the application."""
     API_V1_STR: str = "/api/v1"
 
     # Meta
@@ -32,9 +34,19 @@ class Settings(BaseSettings):
         case_sensitive = True
 
 
-# See: https://loguru.readthedocs.io/en/stable/overview.html#entirely-compatible-with-standard-logging  # noqa
 class InterceptHandler(logging.Handler):
+    """
+    Custom logging handler that intercepts all log records.
+
+    This handler is used to redirect logs from the standard logging module to Loguru.
+    """
     def emit(self, record: logging.LogRecord) -> None:  # pragma: no cover
+        """
+        Emit a log record.
+
+        Args:
+            record (logging.LogRecord): The log record to emit.
+        """
         # Get corresponding Loguru level if it exists
         try:
             level = logger.level(record.levelname).name
@@ -54,8 +66,15 @@ class InterceptHandler(logging.Handler):
 
 
 def setup_app_logging(config: Settings) -> None:
-    """Prepare custom logging for our application."""
+    """
+    Prepare custom logging for our application.
 
+    This function sets up logging to use the InterceptHandler,
+    which redirects logs to Loguru.
+
+    Args:
+        config (Settings): The application settings.
+    """
     LOGGERS = ("uvicorn.asgi", "uvicorn.access")
     logging.getLogger().handlers = [InterceptHandler()]
     for logger_name in LOGGERS:

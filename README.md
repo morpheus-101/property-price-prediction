@@ -61,9 +61,9 @@ This project follows a comprehensive workflow to develop, package, and deploy a 
 
 ## Project Structure
 
-The project is meticulously organized as follows:
+The project is organized as follows:
 
-- `house-prices-api/`: Main API directory
+- `deploy-using-docker/house-prices-api/`: Main API directory
   - `app/`: Contains the core FastAPI application
     - `api.py`: Defines API endpoints and request handling logic
     - `config.py`: Configuration settings for the API, including environment variables and logging setup

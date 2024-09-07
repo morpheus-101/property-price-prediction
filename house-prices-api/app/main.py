@@ -1,3 +1,10 @@
+"""
+Main module for the House Price Prediction API.
+
+This module sets up the FastAPI application, configures logging,
+defines routes, and handles CORS settings.
+"""
+
 from typing import Any
 
 from fastapi import APIRouter, FastAPI, Request
@@ -8,7 +15,7 @@ from loguru import logger
 from app.api import api_router
 from app.config import settings, setup_app_logging
 
-# setup logging as early as possible
+# Setup logging as early as possible
 setup_app_logging(config=settings)
 
 
@@ -21,7 +28,15 @@ root_router = APIRouter()
 
 @root_router.get("/")
 def index(request: Request) -> Any:
-    """Basic HTML response."""
+    """
+    Serve a basic HTML response for the root endpoint.
+
+    Args:
+        request (Request): The incoming request object.
+
+    Returns:
+        HTMLResponse: A simple HTML page with a welcome message and link to API docs.
+    """
     body = (
         "<html>"
         "<body style='padding: 10px;'>"
@@ -36,6 +51,7 @@ def index(request: Request) -> Any:
     return HTMLResponse(content=body)
 
 
+# Include routers
 app.include_router(api_router, prefix=settings.API_V1_STR)
 app.include_router(root_router)
 

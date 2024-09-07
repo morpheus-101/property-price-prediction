@@ -5,8 +5,18 @@ import sys
 import os
 from contextlib import contextmanager
 
+
 @contextmanager
 def add_to_path(p):
+    """
+    A context manager to temporarily add a path to sys.path.
+
+    Args:
+        p (str): The path to be added to sys.path.
+
+    Yields:
+        None
+    """
     old_path = sys.path
     sys.path = sys.path[:]
     sys.path.insert(0, p)
@@ -15,21 +25,41 @@ def add_to_path(p):
     finally:
         sys.path = old_path
 
+
 # Use the context manager to temporarily modify the path
 with add_to_path(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))):
     from regression_model.processing.validation import HouseDataInputSchema
 
 
 class PredictionResults(BaseModel):
+    """
+    Pydantic model for prediction results.
+
+    Attributes:
+        errors (Optional[Any]): Any errors that occurred during prediction.
+        version (str): The version of the model used for prediction.
+        predictions (Optional[List[float]]): The list of predicted house prices.
+    """
     errors: Optional[Any]
     version: str
     predictions: Optional[List[float]]
 
 
 class MultipleHouseDataInputs(BaseModel):
+    """
+    Pydantic model for multiple house data inputs.
+
+    Attributes:
+        inputs (List[HouseDataInputSchema]): A list of house data inputs.
+    """
     inputs: List[HouseDataInputSchema]
 
     class Config:
+        """
+        Configuration class for MultipleHouseDataInputs.
+
+        Provides an example of the expected input format.
+        """
         schema_extra = {
             "example": {
                 "inputs": [

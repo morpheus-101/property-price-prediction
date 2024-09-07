@@ -13,6 +13,15 @@ from contextlib import contextmanager
 
 @contextmanager
 def add_to_path(p):
+    """
+    A context manager to temporarily add a path to sys.path.
+
+    Args:
+        p (str): The path to be added to sys.path.
+
+    Yields:
+        None
+    """
     old_path = sys.path
     sys.path = sys.path[:]
     sys.path.insert(0, p)
@@ -35,7 +44,10 @@ api_router = APIRouter()
 @api_router.get("/health", response_model=schemas.Health, status_code=200)
 def health() -> dict:
     """
-    Root Get
+    Endpoint to check the health of the API.
+
+    Returns:
+        dict: A dictionary containing the project name, API version, and model version.
     """
     health = schemas.Health(
         name=settings.PROJECT_NAME, api_version=__version__, model_version=model_version
@@ -47,7 +59,16 @@ def health() -> dict:
 @api_router.post("/predict", response_model=schemas.PredictionResults, status_code=200)
 async def predict(input_data: schemas.MultipleHouseDataInputs) -> Any:
     """
-    Make house price predictions with the TID regression model
+    Endpoint to make house price predictions using the TID regression model.
+
+    Args:
+        input_data (schemas.MultipleHouseDataInputs): The input data for prediction.
+
+    Returns:
+        Any: The prediction results.
+
+    Raises:
+        HTTPException: If there are validation errors in the prediction.
     """
 
     input_df = pd.DataFrame(jsonable_encoder(input_data.inputs))
